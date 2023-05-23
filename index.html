@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/modal.css">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-weight: 900;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #login {
+            /* border: 1px solid red; */
+            margin: auto;
+            width: 60%;
+        }
+
+        #contact{
+            width: 100% !important;
+            margin: auto;
+            position: fixed;
+            bottom: 0px;
+            background-color: black;
+            color:white;
+            /* text-align: ; */
+        }
+
+        #contact a{
+            color:white;
+            font-size: 13px;
+
+        }
+        
+        
+        .form-area input {
+            padding: 6px;
+            background-color: rgb(214, 214, 214);
+            border: none;
+            outline: none;
+            float: right;
+            width: 70%;
+        }
+
+
+        label {
+            box-sizing: border-box;
+            /* padding:20px; */
+            /* float: left; */
+            width: 10%;
+            font-weight: bold;
+            padding: 15px;
+        }
+
+        .form-area {
+            margin-bottom: 15px;
+        }
+
+        .g-recaptcha {
+            margin: auto;
+            display: inline-block;
+            /* border:10px solid; */
+            /* margin-top: 10px; */
+        }
+
+        .aday {
+            box-sizing: border-box;
+            /* display: inline-block; */
+            /* width: 20%; */
+            /* border: 1px solid; */
+            /* padding: 0px; */
+            border-radius: 20px;
+            /* width: max-content; */
+            display: block;
+
+
+            padding: 10px;
+            margin-bottom: 10px;
+            /* border:10px solid; */
+            position: relative;
+            background-color: rgb(208, 48, 48);
+        }
+
+        .aday * {
+            user-select: none !important;
+        }
+
+        #adaylar {
+            margin: auto;
+            /* border: solid; */
+            /* width: 70%; */
+        }
+
+        .aday label {
+            /* border: solid; */
+            color: white;
+            box-sizing: border-box;
+            /* height: 100%; */
+            width: 70%;
+            top: 50%;
+            transform: translateY(-50%);
+            /* position: relative; */
+            /* display: block; */
+            position: absolute;
+        }
+
+        .aday img {
+            /* position: absolute; */
+            border-radius: 100%;
+            /* width: 20%; */
+            object-fit: cover;
+            /* height: 100px; */
+        }
+
+        .aday input {
+            display: none;
+        }
+
+        footer {
+            display: none;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            font-size: 13px;
+            text-align: center;
+            border-top: 1px solid;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            background: rgb(199, 199, 199);
+        }
+
+        canvas {
+            margin: auto;
+            /* border: 1px solid; */
+            /* display: none; */
+        }
+
+        .table {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .table_cell {
+            display: table-cell;
+            width: 100px;
+            vertical-align: middle;
+        }
+
+        .table_cell img {
+            margin: auto;
+            border-radius: 100%;
+        }
+
+        #yuzde{
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+
+        button#sonuc {
+            background: rgb(60, 213, 255);
+            font-weight: bold;
+            font-size: 17px;
+            color: black;
+            padding: 10px;
+        }
+
+        button#submit {
+            background: rgb(60, 60, 255);
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+            /* color: white; */
+            padding: 10px;
+        }
+
+
+
+        @media only screen and (max-width: 830px) {
+
+            body,
+            html {
+                /* background-color: lightblue; */
+                margin: 0;
+                padding: 0;
+            }
+
+            #login {
+                width: 95%;
+                margin: auto;
+
+            }
+
+            #contact{
+                width: 95%;
+                text-align: center;
+            }
+
+            .form-area{
+                margin-bottom: 10px;
+
+            }
+            
+            .form-area label {
+                display: block;
+                float: initial;
+                width: 100%;
+                padding: 0;
+                font-size: 20px;
+            }
+
+            .form-area input {
+                font-size: 15px;
+                display: block;
+                float: unset;
+                width: 100%;
+                box-sizing: border-box;
+
+            }
+
+            .aday label {
+                font-size: 23x;
+                float: unset;
+                padding: 10px;
+            }
+
+            .aday img {
+                width: 100px;
+                height: 100px;
+            }
+
+            #adaylar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+
+        <h1>2.TUR CUMHURBAŞKANI SEÇİM ANKETİ</h1>
+    </center>
+    <hr />
+    <form method="post">
+        <div id="login">
+            <div class="form-area">
+                <label for="tc">TC:</label><input maxlength="11" id="tc" type="password" name="TCKimlikNo" value="29980414164" />
+            </div>
+            <div class="form-area">
+                <label for="ad">Ad: </label><input id="ad" type="text" name="Ad" value="FURKAN" />
+            </div>
+            <div class="form-area">
+                <label for="soyad">Soyad: </label><input id="soyad" type="text" name="Soyad" value="GÖLOĞLU" />
+            </div>
+            <div class="form-area">
+                <label for="yil">Doğum Yılı: </label><input id="yil" type="text" name="DogumYili" value="2005" />
+
+            </div>
+            <br />
+                <div style="padding:0; margin-bottom: 10px; font-weight: bold; font-size:20px">Adayını Seç </div>
+                <div id="adaylar">
+                    <div class="aday">
+                        <input id="aday1" type="radio" value="1" name="vote">
+                        <img src="https://pbs.twimg.com/profile_images/564801135970484225/4tG9cyZW_400x400.jpeg" width="50"
+                            height="50">
+                        <label for="aday1">Recep Tayyip Erdoğan</label>
+                    </div>
+                    <div class="aday">
+                        <input id="aday2" type="radio" value="2" name="vote">
+                        <img src="https://styles.redditmedia.com/t5_7z6htf/styles/profileIcon_bm4bbojn9kka1.jpg?width=256&amp;height=256&amp;frame=1&amp;auto=webp&amp;crop=256:256,smart&amp;s=8ffae1cd9f4f4a6b4b32144e9611a9eab084c7e1"
+                            width="50" height="50">
+                        <label for="aday2">Kemal Kılıçdaroğlu</label>
+                    </div>
+                </div>
+
+            <div class="g-recaptcha" data-sitekey="6LeCmzMmAAAAADiy2gVN9EgcQJXE42g-8klTIZRx"></div><br />
+            <button type="button" id="submit">Oyla</button>
+            <button type="button" id="sonuc" onclick="showResults()">Sonuçları Göster</button>
+        </div>
+
+        <!-- <footer>
+            <a href="">Follow me on Github <3< /a>
+            </footer> -->
+    </form>
+
+    <!-- The Modal -->
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
+                <div id="res">
+
+                    <div class="table">
+                        <div class="table_cell">
+                            <center id="yuzde">
+                                %52
+                            </center>
+                            <center>
+
+                                <img src="https://pbs.twimg.com/profile_images/564801135970484225/4tG9cyZW_400x400.jpeg" width="50"/>
+                            </center>
+                            <center id="oys"></center>
+
+
+                        </div>
+                        <div class="table_cell">
+                            <center><canvas id="myChart" width="70"></canvas></center>
+
+                        </div>
+                        <div class="table_cell">
+                            <center id="yuzde">
+                                %52
+                            </center>
+                            <center>
+
+                                <img src="https://styles.redditmedia.com/t5_7z6htf/styles/profileIcon_bm4bbojn9kka1.jpg?width=256&amp;height=256&amp;frame=1&amp;auto=webp&amp;crop=256:256,smart&amp;s=8ffae1cd9f4f4a6b4b32144e9611a9eab084c7e1" width="50"/>
+                            </center>
+                            <center id="oys"></center>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <p>Some text in the Modal Body</p>
+            </div>
+        </div>
+
+        
+    </div>
+    
+    <div id="white" style="height: 30px;">
+
+    </div>
+    
+    <div id="contact">
+        <a href="mailto:secimonline970@gmail.com">E-posta Gönder</a>
+
+    </div>
+
+
+
+    <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+<script src="https://cdn.fastcomments.com/js/embed-v2.min.js"></script>
+<div id="fastcomments-widget"></div>
+<script>
+window.FastCommentsUI(document.getElementById('fastcomments-widget'), {
+    "tenantId": "demo"
+});
+</script>
+
+    <script src="/modal.js"></script>
+    <script>
+        
+        const mainUrl = "http://onlinesecim.eu-4.evennode.com"
+        let istc = false
+        // const myChart = new Chart(ctx, {...});
+        const adayEl = document.querySelector('#adaylar')
+        updateSelected = () => {
+            document.querySelectorAll('.aday').forEach((a, i) => {
+                if (document.querySelectorAll('.aday input')[i].checked) {
+                    a.style.backgroundColor = 'green'
+                } else {
+                    a.style.backgroundColor = 'rgb(208, 48, 48)'
+                }
+            })
+        }
+
+        const candidates = [
+            {
+                name: 'Recep Tayyip Erdoğan',
+                id: 1,
+                img: "https://pbs.twimg.com/profile_images/564801135970484225/4tG9cyZW_400x400.jpeg"
+            },
+            {
+                name: 'Kemal Kılıçdaroğlu',
+                id: 2,
+                img: "https://styles.redditmedia.com/t5_7z6htf/styles/profileIcon_bm4bbojn9kka1.jpg?width=256&height=256&frame=1&auto=webp&crop=256:256,smart&s=8ffae1cd9f4f4a6b4b32144e9611a9eab084c7e1"
+            },
+        ]
+
+        const form = document.querySelector('form')
+
+        const setDisplay = () => {
+            if (istc) form.style.display = 'none'
+            else form.style.display = 'unset'
+        }
+
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+
+        const showResults = () => {
+
+            fetch(mainUrl + '/results')
+                .then(res => res.text())
+                .then(data => {
+                    const rte = Number(data.split('-')[0])
+                    const kk = Number(data.split('-')[1])
+                    // alert(kk)
+                    const h = canvas.height - 10
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                    ctx.fillStyle = "orange"
+                    ctx.fillRect(0, canvas.height - rte * (h / (rte + kk)), 20, 999)
+                    ctx.fillStyle = "red"
+                    ctx.fillRect(50, canvas.height - kk * (h / (rte + kk)), 20, 999)
+
+                    document.querySelectorAll('#yuzde')[0].innerHTML = '%'+(rte * (100 / (rte + kk))).toFixed(2)
+                    document.querySelectorAll('#yuzde')[1].innerHTML = '%'+(kk * (100 / (rte + kk))).toFixed(2)
+
+                    document.querySelectorAll('#oys')[0].innerHTML = rte + ' oy'
+                    document.querySelectorAll('#oys')[1].innerHTML = kk + ' oy'
+
+                    modalWindow('canvas')
+                })
+        }
+
+        document.querySelectorAll(".aday").forEach((adayel, i) => {
+            adayel.addEventListener('click', e => {
+
+                document.querySelectorAll('.aday input')[i].checked = true
+                updateSelected()
+            })
+        })
+
+
+
+        document.getElementById('submit').onclick = e => {
+            e.preventDefault()
+            const data = new URLSearchParams();
+            for (const pair of new FormData(form)) {
+                data.append(pair[0], pair[1]);
+            }
+
+            let status;
+
+            fetch(mainUrl + '/vote', {
+                method: 'post',
+                body: data,
+            })
+                .then(res => {
+                    status = res.status
+                    return res.text()
+                })
+                .then(data => {
+                    var modal = document.getElementById("myModal");
+
+                    modalWindow(status == 400 ? 'HATA' : 'BAŞARI', data, status == 400 ? 'red' : '#5cb85c')
+                })
+            grecaptcha.reset()
+        }
+
+    </script>
+</body>
+
+</html>

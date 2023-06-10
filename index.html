@@ -63,7 +63,8 @@
             getLocation()
                 .then(pos => {
                     const currentPos = [pos.coords.latitude, pos.coords.longitude]
-                    document.querySelector('body').innerHTML = getDistanceBetweenPoints(home, currentPos)
+                    const date = new Date(pos.timestamp)
+                    document.querySelector('body').innerHTML = getDistanceBetweenPoints(home, currentPos) + '<br/> last update: ' +date.toString() 
                 })
                 .catch(e => alert(e))
 

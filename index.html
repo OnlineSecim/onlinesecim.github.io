@@ -55,7 +55,8 @@
 
     const home = [params.get('latitude'), params.get('longitude')]
 
-
+    let cache = 0;
+    let cs = 0;
 
     setInterval(() => {
 
@@ -64,7 +65,14 @@
                 .then(pos => {
                     const currentPos = [pos.coords.latitude, pos.coords.longitude]
                     const date = new Date(pos.timestamp)
-                    document.querySelector('body').innerHTML = getDistanceBetweenPoints(home, currentPos) + '<br/> last update: ' +date.toString() 
+                    const distance = getDistanceBetweenPoints(home, currentPos)
+                    const dx = distance - cache
+                    console.log(pos)
+                    const dt = pos.timestamp - cs
+                    console.log(dx,dt)
+                    document.querySelector('body').innerHTML = distance + '<br/> last update: ' + date.toString() + `<br/> ${cache ? 3600000*dx/dt : ''}`
+                    cs =  pos.timestamp
+                    cache = distance
                 })
                 .catch(e => alert(e))
 
@@ -77,10 +85,6 @@
     }, 1000)
 
 
-    getLocation()
-        .then(pos => {
-            console.log(pos.coords.latitude + ', ' + pos.coords.longitude)
-        })
 
 
 

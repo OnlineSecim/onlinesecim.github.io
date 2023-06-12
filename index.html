@@ -65,14 +65,15 @@
                 .then(pos => {
                     const currentPos = [pos.coords.latitude, pos.coords.longitude]
                     const date = new Date(pos.timestamp)
-                    const distance = getDistanceBetweenPoints(home, currentPos)
-                    const dx = distance - cache
-                    console.log(pos)
+                    const distancehome = getDistanceBetweenPoints(home, currentPos)
+                    // console.log(dx,dt)
+                    
+                    const dx = getDistanceBetweenPoints(currentPos , cache)
                     const dt = pos.timestamp - cs
-                    console.log(dx,dt)
-                    document.querySelector('body').innerHTML = distance + '<br/> last update: ' + date.toString() + `<br/> ${cache ? 3600000*dx/dt : ''}`
+
+                    document.querySelector('body').innerHTML = distancehome + '<br/> last update: ' + date.toString() + `<br/> ${cache ? 3600000*dx/dt : ''}`
                     cs =  pos.timestamp
-                    cache = distance
+                    cache = [pos.coords.latitude, pos.coords.longitude]
                 })
                 .catch(e => alert(e))
 

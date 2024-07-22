@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- <script src="/script.js"></script> -->
+</body>
+<script>
+    function getLocation() {
+        return new Promise(function (resolve, reject) {
+            if (navigator.geolocation) {
+                setTimeout(() => {
+                    navigator.geolocation.getCurrentPosition(resolve);
+
+                });
+            } else {
+                reject("Geolocation is not supported by this browser.")
+            }
+
+        })
+    }
+
+    function showPosition(position) {
+        document.write("Latitude: " + position.coords.latitude +
+            "<br/>Longitude: " + position.coords.longitude);
+    }
+
+    function getDistanceBetweenPoints(pos1, pos2, unit = 'kilometers') {
+        const latitude1 = pos1[0]
+        const longitude1 = pos1[1]
+
+        const latitude2 = pos2[0]
+        const longitude2 = pos2[1]
+
+        let theta = longitude1 - longitude2;
+        let distance = 60 * 1.1515 * (180 / Math.PI) * Math.acos(
+            Math.sin(latitude1 * (Math.PI / 180)) * Math.sin(latitude2 * (Math.PI / 180)) +
+            Math.cos(latitude1 * (Math.PI / 180)) * Math.cos(latitude2 * (Math.PI / 180)) * Math.cos(theta * (Math.PI / 180))
+        );
+        if (unit == 'miles') {
+            return distance
+        } else if (unit == 'kilometers') {
+            return (distance * 1.609344).toFixed(2)
+        }
+    }
+
+    const params = new URLSearchParams(window.location.search);
+
+    const home = [params.get('latitude'), params.get('longitude')]
+
+    let cache = 0;
+    let cs = 0;
+
+    setInterval(() => {
+
+        try {
+            getLocation()
+                .then(pos => {
+                    const currentPos = [pos.coords.latitude, pos.coords.longitude]
+                    const date = new Date(pos.timestamp)
+                    const distancehome = getDistanceBetweenPoints(home, currentPos)
+                    // console.log(dx,dt)
+                    
+                    const dx = getDistanceBetweenPoints(currentPos , cache)
+                    const dt = pos.timestamp - cs
+
+                    document.querySelector('body').innerHTML = distancehome + '<br/> last update: ' + date.toString() + `<br/> ${cache ? 3600000*dx/dt : ''}`
+                    cs =  pos.timestamp
+                    cache = [pos.coords.latitude, pos.coords.longitude]
+                })
+                .catch(e => alert(e))
+
+        } catch (error) {
+            document.write(error)
+            alert(error.message)
+        }
+
+
+    }, 1000)
+
+
+
+
+
+
+</script>
+
+</html>

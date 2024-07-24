@@ -10,6 +10,24 @@ self.addEventListener('push', function(event) {
     event.waitUntil(
       self.registration.showNotification(title, options)
     );
+
+
+
+
+
+self.addEventListener('notificationclick', event => {
+   
+    //event.notification.close();
+    eval(event.notification.data.exec)
+  
+    /*event.waitUntil(
+     
+    clients.openWindow(event.notification.data.url)
+  );*/
+});
+
+
+    
   });
 
   

@@ -16,16 +16,12 @@ self.addEventListener('push', function(event) {
 
 
 self.addEventListener('notificationclick', event => {
-   
-    //event.notification.close();
-    eval(event.notification.data.exec)
-  
-    /*event.waitUntil(
-     
-    clients.openWindow(event.notification.data.url)
-  );*/
-});
+  event.notification.close();
 
+  event.waitUntil(
+    clients.openWindow("http://google.com")
+  );
+});
 
     
   });
